@@ -24,11 +24,11 @@ use crate::{
 
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Request {
+pub struct Request<'a> {
     #[serde(rename = "ip")]
     address: IpAddr,
     #[serde(serialize_with = "crate::types::serde_categories_to_string")]
-    categories: Vec<Category>,
+    categories: &'a [Category],
     comment: Option<String>,
     #[serde(serialize_with = "serde_option_datetime_to_string")]
     timestamp: Option<DateTime<Utc>>,
@@ -47,7 +47,7 @@ impl Client {
     pub async fn report(
         &self,
         address: IpAddr,
-        categories: Vec<Category>,
+        categories: &[Category],
         comment: Option<String>,
         timestamp: Option<DateTime<Utc>>,
     ) -> crate::Result<Response> {

@@ -1,7 +1,7 @@
 use chrono::Duration;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DataWrapper<T> {
     pub data: T,
 }
@@ -17,7 +17,7 @@ where
     serializer.serialize_str(&datetime.to_rfc3339())
 }
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
 #[repr(u8)]
 pub enum Category {
     /// Altering DNS records resulting in improper redirection.
@@ -84,7 +84,7 @@ pub enum Category {
 
 // serde serialize vec of categories to comma separated string, by using the repr of the enum
 pub(crate) fn serde_categories_to_string<S>(
-    categories: &Vec<Category>,
+    categories: &[Category],
     serializer: S,
 ) -> Result<S::Ok, S::Error>
 where

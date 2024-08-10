@@ -9,7 +9,7 @@ async fn main() {
     let report = client
         .report(
             IpAddr::from_str("127.0.0.1").unwrap(),
-            vec![Category::OpenProxy],
+            &vec![Category::OpenProxy],
             None,
             None,
         )
