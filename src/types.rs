@@ -17,7 +17,7 @@ where
     serializer.serialize_str(&datetime.to_rfc3339())
 }
 
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Deserialize, Serialize)]
 #[repr(u8)]
 pub enum Category {
     /// Altering DNS records resulting in improper redirection.
