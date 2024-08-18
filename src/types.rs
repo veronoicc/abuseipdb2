@@ -160,7 +160,7 @@ where
 }
 
 #[allow(dead_code)]
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Report {
     /// TODO: This is a string in the API, but it's actually a date
@@ -173,7 +173,7 @@ pub struct Report {
     reporter_country_name: String,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub enum IpVersion {
     V4,
     V6,
@@ -204,7 +204,7 @@ where
     }
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum UsageType {
     Commercial,
     Organization,

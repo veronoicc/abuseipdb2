@@ -29,7 +29,7 @@ pub struct Request {
 }
 
 #[allow(dead_code)]
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Response {
     meta: Meta,
@@ -38,14 +38,14 @@ pub struct Response {
 }
 
 #[allow(dead_code)]
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Meta {
     /// TODO: This is a string in the API, but it's actually a date
     generated_at: String,
 }
 
 #[allow(dead_code)]
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Blacklist {
     #[serde(rename = "ipAddress")]
     address: IpAddr,
@@ -71,6 +71,7 @@ impl Client {
             ip_version,
         };
 
-        self.get(self.base.join("blacklist").unwrap(), request).await
+        self.get(self.base.join("blacklist").unwrap(), request)
+            .await
     }
 }
